@@ -10,12 +10,20 @@ from dataloader.loader import init_dataloader
 from networks.mmfd import MultiModalFD, UniModalFD
 from trainer import MMFDTrainer
 from utils import *
+import argparse
+
+
+args = argparse.ArgumentParser()
+args.add_argument("--timestamp", "-t", default="08-25-23-29", type=str,
+                  help="Timestamp of trained model folder.")
+args.add_argument("--best", '-b', default=True, type=bool, help="Whether to use best model or not.")
+args.parse_args()
 
 base_dir = "/opt/data/private/Meta-Learning/FaultDiagnosis/MMPN-FD"
 data_name = 'CWRU'
 assert os.path.exists(base_dir)
-timestamp = "08-25-23-29"
-read_best = False  # 读取best模型还是final模型
+timestamp = args.timestamp
+read_best = args.best  # 读取best模型还是final模型
 log_name = 'test'
 trained_model_dir = os.path.join(base_dir, 'output', data_name, timestamp)
 set_logger(trained_model_dir, log_name)

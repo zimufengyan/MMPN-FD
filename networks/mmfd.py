@@ -119,13 +119,3 @@ class UniModalFD(MetricModelBase):
         embedding = self.encoder(x).reshape(x.size(0), -1)
 
         return self.prototypical_head(embedding, labels, k_shot)
-
-
-if __name__ == '__main__':
-    from config import Config
-    import torchinfo
-
-    config = Config()
-    input_shape = ((1024, 1), (1105, 1), (3, 224, 224))
-    model = MultiModalFD(config, input_shape)
-    torchinfo.summary(model, input_shape=input_shape, device='cuda', show_output=True, show_input=True)
